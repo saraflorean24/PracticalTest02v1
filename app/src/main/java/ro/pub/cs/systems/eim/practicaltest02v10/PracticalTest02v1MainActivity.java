@@ -80,7 +80,8 @@ public class PracticalTest02v1MainActivity extends AppCompatActivity {
                             clientAddressEditText.getText().toString(),
                             Integer.parseInt(clientPortEditText.getText().toString()),
                             query,
-                            autocompleteTextView
+                            autocompleteTextView,
+                            getApplicationContext()
                     ).start();
                 } else {
                     autocompleteTextView.setText("");

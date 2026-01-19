@@ -1,7 +1,9 @@
 package ro.pub.cs.systems.eim.practicaltest02v10.network;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,12 +18,14 @@ public class ClientThread extends Thread {
     private final TextView autocompleteTextView;
 
     private Socket socket;
+    Context context;
 
-    public ClientThread(String address, int port, String word, TextView autocompleteTextView) {
+    public ClientThread(String address, int port, String word, TextView autocompleteTextView, Context context) {
         this.address = address;
         this.port = port;
         this.word = word;
         this.autocompleteTextView = autocompleteTextView;
+        this.context = context;
     }
 
     @Override
@@ -43,9 +47,16 @@ public class ClientThread extends Thread {
             while ((anagram = bufferedReader.readLine()) != null) {
                 final String finalizedAnagram = anagram;
                 autocompleteTextView.post(() ->
-                        autocompleteTextView.append(finalizedAnagram + "\n")
+//                        autocompleteTextView.append(finalizedAnagram + "\n")
+                        Toast.makeText(context , finalizedAnagram, Toast.LENGTH_LONG).show()
                 );
             }
+
+            // show anagrams in a toast
+
+//            Toast.makeText(context, "Autocomplete results received", Toast.LENGTH_LONG).show();
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
